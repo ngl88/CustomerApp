@@ -1,0 +1,47 @@
+
+<div class="container">
+  <div class="row">
+    <h3>Добавить по номеру телефона</h3>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <%= form_tag "/black_list", method: "post" do %>
+      <div class="row">
+        <div class="col-md-8">
+          <%= text_field_tag :phone, "", class: "form-control" %>
+        </div>
+        <div class="col-md-4">
+          <%= submit_tag "Сохранить", class: "btn btn-primary" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>Черный список</h3>
+  <% @customers.each do |t| %>
+    <div class="row">
+      <div class="panel panel-success">
+        <div class="panel-body">
+          <div class="col-md-8">
+            <b>Имя клиента: </b><%= t.name %><br>
+            <b>Телефон: </b><%= t.phone %><br>
+            <p>
+              <b>Описание: </b><%= t.desc %>
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="text-right">
+              <%= link_to unban_customer_path(t.id), method: :patch  do %>
+                <span class="glyphicon glyphicon-ok-circle" data-toggle="tooltip" data-placement="top" title="Unban" aria-hidden="true"></span>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to 'Реестр клиентов', root_path %>
+</div>

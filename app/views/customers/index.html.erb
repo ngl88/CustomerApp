@@ -1,0 +1,55 @@
+
+<div class="container">
+  <div class="row">
+    <h3>Новый клиент</h3>
+  </div>
+  <div class="row">
+    <%= form_for @customer do |f| %>
+      <div class="form-group">
+        <%= f.text_field :name, class: "form-control", placeholder: "Имя клиента" %>
+      </div>
+      <div class="form-group">
+        <%= f.text_field :phone, class: "form-control", size: "20x4", placeholder: "Телефон" %>
+      </div>
+      <div class="form-group">
+        <%= f.text_area :desc, class: "form-control", size: "20x4", placeholder: "Описание" %>
+      </div>
+      <%= f.submit "Добавить", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <hr>
+
+  <h3>Реестр клиентов</h3>
+  <% @customers.each do |t| %>
+    <div class="row">
+      <div class="panel panel-success">
+        <div class="panel-body">
+          <div class="col-md-8">
+            <b>Имя клиента: </b><%= t.name %><br>
+            <b>Телефон: </b><%= t.phone %><br>
+            <p>
+              <b>Описание: </b><%= t.desc %>
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p class="text-right">
+              <%= link_to ban_customer_path(t.id), method: :patch  do %>
+                <span class="glyphicon glyphicon-ban-circle" data-toggle="tooltip" data-placement="top" title="Ban" aria-hidden="true"></span>
+              <% end %>
+              <%= link_to edit_customer_path(t) do %>
+                <span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="Edit" aria-hidden="true"></span>
+              <% end %>
+              <%= link_to customer_path(t), method: :delete, data: { confirm: 'Вы уверены?' } do %>
+                <span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to 'Черный список', black_list_customer_path %>
+
+</div>
